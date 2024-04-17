@@ -34,13 +34,14 @@ class DingTalkBot:
         if response.status_code != 200:
             raise Exception("[WARNING]:send ding ding message failed!")
 
-    def send_dbtest_info(self, db_ver: str, res: bool):
+    def send_dbtest_info(self, db_ver: str, res, rep_html):
         # 给钉钉上项目群发送消息
         key_word = 'DB版本点检'
         dd_url = "https://oapi.dingtalk.com/robot/send?access_token=30e018298cc1f7deea1dbaefe84eefd64ee83c4455f785c42a0d17da9a8c5422"
         info = "[DB版本点检]\n\n" + \
-               "版本信息：{}\n".format(db_ver) + \
-               'DB版本点检结果：{}\n'.format(res)
+            "版本信息：{}\n".format(db_ver) + \
+            "DB版本点检结果：{}\n".format(res) + \
+            "报告链接：{}\n".format(rep_html)
         try:
             self.send_dd_message(dd_url, info, key_word, at_all=True)
             # retry_run(3, 10, send_dd_message, dd_url, info, self.c_env.SOC, at_all=True)

@@ -3,10 +3,10 @@ import time
 import zipfile
 import paramiko
 import datetime
-from DB_Autotest.demo.Log import Logger
-from DB_Autotest.demo.A19 import A19devices
-from DB_Autotest.demo.ComReadWrite import ComReadWrite
-from DB_Autotest.dingtalk.dingrobot import DingTalkBot
+from demo.Log import Logger
+from demo.A19 import A19devices
+from demo.ComReadWrite import ComReadWrite
+from dingtalk.dingrobot import DingTalkBot
 from stat import S_ISDIR as isdir
 import subprocess
 from dingtalk import dingrobot
@@ -15,7 +15,7 @@ from datetime import datetime
 class Download():
     def __init__(self):
         # 服务器连接信息
-        self.com = ComReadWrite(comport='COM117', combaud='921600')
+        self.com = ComReadWrite(comport='COM8', combaud='921600')
         self.dd = DingTalkBot()
         try:
             remoteIP = '192.168.150.150'
@@ -253,9 +253,9 @@ class Download():
         # formatted_date = current_date.strftime("%Y%m%d")[2:]
         # Logger.info(f"formatted_date ={formatted_date}")
         # expect_vison = "GACNE_A19_AVNT_ST_" + formatted_date
-        expect_vison = "GACNE_A19_AVNT_ST_240327"
+        expect_vison = "Hyper_A19_AVNT_ST_240415_"
         # Logger.info(f"expect_vison ={expect_vison}")
-        self.dd.send_dbtest_info(db_ver="GACNE_A19_AVNT_ST_240307_1631D_D", res=True)
+        #self.dd.send_dbtest_info(db_ver="GACNE_A19_AVNT_ST_240307_1631D_D", res=True)
         return expect_vison
 
     def get_uupfile(self):

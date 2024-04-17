@@ -1,0 +1,8 @@
+2024-04-16 15:37:22,096 - Log.py[line:36] - ERROR: Serial port connection failed:could not open port 'COM117': FileNotFoundError(2, '系统找不到指定的文件。', None, 2)
+2024-04-16 15:37:22,617 - Log.py[line:32] - INFO: Successfully connected to the server
+2024-04-16 15:37:25,108 - Log.py[line:32] - INFO: 进入我的车
+2024-04-16 15:37:50,288 - Log.py[line:32] - INFO: 当前wifi已连接
+2024-04-16 15:38:17,034 - Log.py[line:32] - INFO: 地图已激活
+2024-04-16 15:38:20,069 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-16 15:38:22,012 - Log.py[line:32] - INFO: 点击主页
+2024-04-16 15:38:23,017 - Log.py[line:32] - INFO: 回到地图页面

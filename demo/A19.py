@@ -1,13 +1,14 @@
 import os
 import time
-from DB_Autotest.demo.Log import Logger
+from demo.Log import Logger
 import uiautomator2 as u2
 import subprocess
-
+from dingtalk.dingrobot import DingTalkBot
 
 class A19devices():
     def __init__(self, IP="12345678"):
         self.d = u2.connect(IP)
+        self.dt = DingTalkBot()
 
     def getDvicesInfo(self):
         # 获取设备名
@@ -173,6 +174,18 @@ class A19devices():
         地图激活
         :return:
         """
+        #if self.d(resourceId="space.syncore.cockpit.map:id/iv_search_back").exists:
+        #    self.d(resourceId="space.syncore.cockpit.map:id/iv_search_back").click()
+        if not self.d(resourceId="space.syncore.cockpit.map:id/tv_scale", text="1千米").exists:
+            Logger.info("不在地图页面")
+            self.d(resourceId="com.gxa.service.systemui:id/home").click()
+            time.sleep(1)
+            if not self.d(resourceId="space.syncore.cockpit.map:id/tv_scale", text="1千米").exists:
+                self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
+                Logger.info("点击主页")
+                time.sleep(1)
+        if self.d(resourceId="space.syncore.cockpit.map:id/iv_search_back").exists:
+            self.d(resourceId="space.syncore.cockpit.map:id/iv_search_back").click()
         if self.d(text="手动激活").exists(timeout=5):
             Logger.warn("地图未激活，进行手动激活")
             process = subprocess.Popen("adb shell", stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
@@ -201,7 +214,6 @@ class A19devices():
         """
         版本检查
         """
-
         self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
         time.sleep(1)
         self.d(resourceId="com.gxa.service.systemui:id/car_setting").click()  # 点击我的车
@@ -218,114 +230,229 @@ class A19devices():
         """
         wifi
         """
-        self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
-        time.sleep(1)
-        self.d.xpath(
-            '//*[@resource-id="com.gxa.service.systemui:id/state_bar_signal_layout"]/android.widget.FrameLayout[2]').click()
-        time.sleep(1)
-        if not self.d(resourceId="com.gxa.service.systemui:id/item_wifi_index_active").exists:
-            self.d(resourceId="com.gxa.service.systemui:id/title", text="智能软件内部").click() #选择"智能软件内部"wifi
+        try:
+            self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
             time.sleep(1)
-            self.d(resourceId="com.gxa.service.systemui:id/et_input").send_keys("zmrj8888")
+            self.d.xpath(
+                '//*[@resource-id="com.gxa.service.systemui:id/state_bar_signal_layout"]/android.widget.FrameLayout[2]').click()
             time.sleep(1)
-            self.d(resourceId="com.gxa.service.systemui:id/btn_positive").click()
-            time.sleep(1)
-        Logger.info("当前wifi已连接")
+            if not self.d(resourceId="com.gxa.service.systemui:id/wifi_connect_text",text="可连接网络列表").exists:
+                self.d.xpath('//*[@content-desc="WLAN|无线网络|Wifi|网络连接::connectpanel_connectpanel_wlan"]/android.widget.TextView[1]').click()
+            if not self.d(resourceId="com.gxa.service.systemui:id/item_wifi_index_active").exists:
+                self.d(resourceId="com.gxa.service.systemui:id/title", text="智能软件内部").click() #选择"智能软件内部"wifi
+                time.sleep(1)
+                self.d(resourceId="com.gxa.service.systemui:id/et_input").send_keys("zmrj8888")
+                time.sleep(1)
+                self.d(resourceId="com.gxa.service.systemui:id/btn_positive").click()
+                time.sleep(1)
+            Logger.info("当前wifi已连接")
+        except Exception as e:
+            print(e)
+            return False
 
     def open_iqiyi(self):
-        self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
-        time.sleep(1)
-        self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="爱奇艺").click()
-        time.sleep(3)
-        if self.d(resourceId="com.qiyi.video.iv:id/ll_home_page_search").exists:
-            return True
-        else:
+        try:
+            self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
+            time.sleep(1)
+            self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="爱奇艺").click()
+            time.sleep(3)
+            if self.d(resourceId="com.qiyi.video.iv:id/ll_home_page_search").exists:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
             return False
 
     def navigat(self):
-        time.sleep(3)
-        if not self.d(resourceId="space.syncore.cockpit.map:id/tv_scale", text="1千米").exists:
-            Logger.info("不在地图页面")
-            self.d(resourceId="com.gxa.service.systemui:id/home").click()
-            time.sleep(1)
+        try:
+            time.sleep(3)
             if not self.d(resourceId="space.syncore.cockpit.map:id/tv_scale", text="1千米").exists:
-                self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
-                Logger.info("点击主页")
+                Logger.info("不在地图页面")
+                self.d(resourceId="com.gxa.service.systemui:id/home").click()
                 time.sleep(1)
-        Logger.info("回到地图页面")
-        if self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").exists():
-            self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").send_keys(
-                "天府广场")
-        else:
+                if not self.d(resourceId="space.syncore.cockpit.map:id/tv_scale", text="1千米").exists:
+                    self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
+                    Logger.info("点击主页")
+                    time.sleep(1)
+            Logger.info("回到地图页面")
+            if self.d(resourceId="com.gxatek.cockpit.launcher:id/mile_hint_text",text="小计里程").exists:
+                self.d(resourceId="com.gxa.service.systemui:id/home").click()
+                time.sleep(1)
+                self.d(resourceId="com.gxa.service.systemui:id/home").click()
+            elif self.d(resourceId="com.gxatek.cockpit.launcher:id/setting").exists:
+                self.d(resourceId="com.gxa.service.systemui:id/home").click()
+            if self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").exists(timeout=6):
+                self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").send_keys(
+                    "天府广场")
+            else:
+                if self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit",text="退出").exists:
+                    self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit",text="退出").click()
+                elif self.d(resourceId="space.syncore.cockpit.map:id/simple_exit",text="退出").exists:
+                    self.d(resourceId="space.syncore.cockpit.map:id/simple_exit",text="退出").click()
+                elif self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit").exists:
+                    self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit").click()
+                self.d.click(1237,534)
+                time.sleep(1)
+                if self.d.xpath('//*[@resource-id="space.syncore.cockpit.map:id/ib_search_btn"]/android.widget.ImageView[1]').exists:
+                    self.d.xpath('//*[@resource-id="space.syncore.cockpit.map:id/ib_search_btn"]/android.widget.ImageView[1]').click()
+                elif self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input").exists:
+                    self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input").click()
+                elif self.d(resourceId="space.syncore.cockpit.map:id/ib_search_btn").exists:
+                    self.d(resourceId="space.syncore.cockpit.map:id/ib_search_btn").click()
+                else:
+                    self.d.xpath(
+                        '//*[@resource-id="space.syncore.cockpit.map:id/ib_search_btn"]/android.widget.ImageView[1]').click()  # 点击地图搜索
+                time.sleep(1)
+                self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").send_keys(
+                    "天府广场")  # 输入框输入地址
+            time.sleep(3)
             self.d.xpath(
-                '//*[@resource-id="space.syncore.cockpit.map:id/ib_search_btn"]/android.widget.ImageView[1]').click()  # 点击地图搜索
+                '//*[@resource-id="space.syncore.cockpit.map:id/srv_recycler_view"]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.ImageButton[1]').click()
+            time.sleep(2)
+            self.d(resourceId="space.syncore.cockpit.map:id/iv_more_icon",
+                        description="第一个详情|第一条详情|第一种详情|第1个详情|第1条详情|第1种详情::Pathplanning_Routedetails1").click()  # 点击"..."
             time.sleep(1)
-            self.d(resourceId="space.syncore.cockpit.map:id/set_suggest_search_input", text="输入名称").send_keys(
-                "天府广场")  # 输入框输入地址
-        time.sleep(3)
-        self.d.xpath(
-            '//*[@resource-id="space.syncore.cockpit.map:id/srv_recycler_view"]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.ImageButton[1]').click()
-        time.sleep(2)
-        self.d(resourceId="space.syncore.cockpit.map:id/iv_more_icon",
-                    description="第一个详情|第一条详情|第一种详情|第1个详情|第1条详情|第1种详情::Pathplanning_Routedetails1").click()  # 点击"..."
-        time.sleep(1)
-        self.d(resourceId="space.syncore.cockpit.map:id/tv_similuation_navi", text="模拟导航").click()
-        time.sleep(1)
-        if self.d(resourceId="space.syncore.cockpit.map:id/speedtype", text="中速").exists():
+            self.d(resourceId="space.syncore.cockpit.map:id/tv_similuation_navi", text="模拟导航").click()
             time.sleep(1)
-            self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit", text="退出").click()
-            return True
-        else:
+            if self.d(resourceId="space.syncore.cockpit.map:id/speedtype", text="中速").exists():
+                time.sleep(1)
+                self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit", text="退出").click()
+                return True
+            elif self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit",text="退出").exists:
+                self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit",text="退出").click()
+                return True
+            elif self.d(resourceId="space.syncore.cockpit.map:id/simple_exit",text="退出").exists:
+                self.d(resourceId="space.syncore.cockpit.map:id/simple_exit",text="退出").click()
+                return True
+            elif self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit").exists:
+                self.d(resourceId="space.syncore.cockpit.map:id/tbt_exit").click()
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
             return False
 
     def online_music(self):
-        self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
-        time.sleep(1)
-        self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
-        time.sleep(1)
-        self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="昊铂悦听").click()
-        time.sleep(1)
-        self.d(text="网易云音乐").click()
-        time.sleep(1)
-        self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").click()  # 播放音乐
-        time.sleep(10)
-        # 通过不通时间点，显示的歌词相同与否来判断是否在播放音乐
-        result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
-        # print(result1)
-        time.sleep(5)
-        result2 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
-        # print(result2)
-        time.sleep(1)
-        self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").click()  # 停止播放
-        if result1 != result2:
-            return True
-        else:
+        try:
+            self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
+            time.sleep(1)
+            self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
+            time.sleep(1)
+            self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="昊铂悦听").click()
+            time.sleep(1)
+            self.d(text="网易云音乐").click()
+            time.sleep(5)
+            if self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").exists:
+                self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").click()  # 播放音乐
+            elif self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_playlist_play", description="播放第4个#播放第四个#播第4个#播第四个#放第4个#放第四个#听第4个#听第四个").exists:
+                self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_playlist_play", description="播放第4个#播放第四个#播第4个#播第四个#放第4个#放第四个#听第4个#听第四个").click()
+            else:
+                self.d(resourceId="com.iflytek.autofly.mediax:id/tv_item_music_playlist_desc", text="2024网易云最火流行歌曲推荐（持更）").click()
+                time.sleep(1)
+                self.d(resourceId="com.iflytek.autofly.mediax:id/tv_media_common_button_text", text="全部播放").click()
+            # 通过不通时间点，显示的歌词相同与否来判断是否在播放音乐
+            if self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").exists:
+                result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            else:
+                result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            # print(result1)
+            time.sleep(10)
+            if self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").exists:
+                result2 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            else:
+                result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            # print(result2)
+            time.sleep(1)
+            if self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").exists:
+                self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").click()  # 停止播放
+            elif self.d(resourceId="com.gxatek.cockpit.shortcut:id/iv_play_state").exists:
+                self.d(resourceId="com.gxatek.cockpit.shortcut:id/iv_play_state").click()
+            if result1 != result2:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
             return False
 
     def local_music(self):
         "本地音乐"
-        self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
-        time.sleep(1)
-        self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
-        time.sleep(1)
-        self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="昊铂悦听").click()
-        time.sleep(1)
-        self.d(text="本地音源").click()
-        time.sleep(1)
-        self.d(resourceId="com.iflytek.autofly.mediax:id/tv_lm_play_all", text="播放全部").click()  # 播放全部
-        time.sleep(5)
-        # 通过不通时间点，显示的歌词相同与否来判断是否在播放音乐
-        result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
-        time.sleep(2)
-        result2 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
-        time.sleep(1)
-        self.d(resourceId="com.gxatek.cockpit.shortcut:id/iv_play_state").click()  # 停止播放
-        if result1 != result2:
-            return True
-        else:
+        try:
+            self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
+            time.sleep(1)
+            self.d(resourceId="com.gxa.service.systemui:id/all_menu").click()  # 点击menu
+            time.sleep(1)
+            self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="昊铂悦听").click()
+            time.sleep(1)
+            self.d(text="本地音源").click()
+            time.sleep(1)
+            self.d(resourceId="com.iflytek.autofly.mediax:id/tv_lm_play_all", text="播放全部").click()  # 播放全部
+            time.sleep(5)
+            # 通过不通时间点，显示的歌词相同与否来判断是否在播放音乐
+            result1 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            time.sleep(2)
+            result2 = self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_lry").info["text"]
+            time.sleep(1)
+            self.d(resourceId="com.gxatek.cockpit.shortcut:id/iv_play_state").click()  # 停止播放
+            if result1 != result2:
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
             return False
+    def connect_bluetooth(self):
+        "蓝牙连接"
+        try:
+            if not self.d(text="蓝牙").exists(timeout=6):
+                self.d(resourceId="com.gxa.service.systemui:id/signal_bt").click()
+            time.sleep(1)
+            self.d(text="蓝牙").click()
+            time.sleep(1)
+            if not self.d(resourceId="com.gxa.service.systemui:id/title", text="自动连接").exists(timeout=6):
+                self.d(resourceId="com.gxa.service.systemui:id/switcher", description="蓝牙开关::connectpanel_bluetooth_bluetoothSwitch").click()
+            time.sleep(10)
+            if self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").exists:
+                self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").click()
+                time.sleep(1)
+                if self.d(resourceId="com.gxa.service.systemui:id/btnDisconnect",text="断开连接").exists:
+                    self.d(resourceId="com.gxa.service.systemui:id/btnDisconnect",text="断开连接").click()
+                time.sleep(1)
+            self.d(resourceId="com.gxa.service.systemui:id/title", text="test").click()
+            time.sleep(1)
+            if self.d(resourceId="com.gxa.service.systemui:id/btn_positive",text="配对").exists(timeout=6):
+                self.d(resourceId="com.gxa.service.systemui:id/btn_positive",text="配对").click()
+                time.sleep(1)
+            if self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").exists(timeout=6):
+                self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").click()
+                return True
+                time.sleep(1)
+            elif self.d(resourceId="com.gxa.service.systemui:id/btnDisconnect",text="断开连接").exists(timeout=6):
+                return True
+            elif self.d(resourceId="com.gxa.service.systemui:id/syncPhoneTitle",text="同步电话").exists(timeout=6):
+                return True
+            else:
+                return False
+        except Exception as e:
+            print(e)
+            return False
+    def adb_screencap(self):
+        filename = time.strftime("%Y-%m-%d_%H%M%S", time.localtime())
+        screencap = "adb shell screencap -p /sdcard/" + filename + ".png"
+        subprocess.Popen(screencap)
+        pull = "adb pull /sdcard/"+filename+".png"+r" C:\Users\Administrator\Desktop\DB_Autotest\output"+"\\"
+        subprocess.Popen(pull)
+        path = r"C:\Users\Administrator\Desktop\DB_Autotest\output"+"\\"+filename + ".png"
+        return path
 
+    def send_report(self,string):
+        self.dt.send_dbtest_info(db_ver="GACNE_A19_AVNT_ST_240307_1631D_D", res=string, rep_html="http://192.168.9.35:9999/index.html")
 
+def send_reports(string):
+    dt = DingTalkBot()
+    dt.send_dbtest_info(db_ver="GACNE_A19_AVNT_ST_240307_1631D_D", res=string, rep_html="http://192.168.9.35:9999/index.html")
 
 if __name__ == '__main__':
     a19 = A19devices()

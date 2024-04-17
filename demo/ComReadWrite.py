@@ -1,7 +1,7 @@
 import time
 
 import serial
-from DB_Autotest.demo.Log import Logger
+from demo.Log import Logger
 
 
 class ComReadWrite:

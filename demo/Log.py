@@ -13,7 +13,7 @@ class Log:
         mode = 'a' if self.logger.handlers else 'w'
         # 第二步，创建handler，用于写入日志文件和屏幕输出
         #log_path = os.getcwd() + '/'
-        logfile = 'E:/lulei/python/DB_Autotest/log/' + logfilename + '.log'
+        logfile = 'C:/Users/Administrator/Desktop/DB_Autotest/log/' + logfilename + '.log'
         fmt = "%(asctime)s - %(filename)s[line:%(lineno)d] - %(levelname)s: %(message)s"
         formatter = logging.Formatter(fmt)
         # 文件输出
