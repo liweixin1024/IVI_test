@@ -295,10 +295,8 @@ class TestIVI:
 if __name__ == '__main__':
     
     result=pytest.main(["-v", "-s", "main.py::TestIVI", '--alluredir', r'.\reports', '--clean-alluredir'])
-    """
     if result == pytest.ExitCode.OK:
         send_reports("PASS")
     else:
         send_reports("FAIL")
     os.system(r'allure serve .\reports -p 9999')
-    """
