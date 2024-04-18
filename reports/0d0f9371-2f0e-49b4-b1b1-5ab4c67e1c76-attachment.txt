@@ -1,3 +1,0 @@
-[32mINFO    [0m 2024-04-17_104329:Log.py:32 Serial port connection succeeded
-[32mINFO    [0m 2024-04-17_104329:Log.py:32 Successfully connected to the server
-[32mINFO    [0m 2024-04-17_104329:Log.py:32 当前版本号为Hyper_A19_AVNT_ST_240415_0115D_D

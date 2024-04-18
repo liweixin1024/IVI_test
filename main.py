@@ -6,14 +6,14 @@ import allure
 import time
 import os
 
-#a19 = A19devices()
-#a19.navigat()
-
+a19 = A19devices()
+test = a19.online_music()
+print(test)
 class TestIVI:
     def setup_class(self):
         self.a19 = A19devices()
         self.download = Download()
-        self.devier = u2.connect("12345678")
+        self.devier = u2.connect("192.168.7.81:5555")
 
     def teardown_class(self):
         print("后置条件")
@@ -65,10 +65,9 @@ class TestIVI:
         """
         wifi连接
         """
-        self.a19.connect_wifi()
+        self.a19
         result =self.a19.open_iqiyi()
         assert result == True
-
     @allure.id("test_03_navigat")
     @allure.title("模拟导航")
     @allure.description("""
@@ -137,11 +136,208 @@ class TestIVI:
     def test_05_bluetooth(self):
         result = self.a19.connect_bluetooth()
         assert result == True
+    @allure.id("test_06_usbmusic_display")
+    @allure.title("本地音乐显示")
+    @allure.description("""
+        TestId:
+            test_06_usbmusic_display
+        TestTitle:
+            本地音乐显示
+        TestDescription:
+            本地音乐显示
+        TestPrecondition:
+            USB2.0连接U盘
+        TestStep:
+            1、进入本地音乐
+        TestExpectation:
+            1、本地音乐正常显示
+                """)
+    def test_06_usbmusic_display(self):
+        result = self.a19.local_music_display()
+        assert result == True
+    @allure.id("test_07_usbmusic")
+    @allure.title("播放本地音乐")
+    @allure.description("""
+        TestId:
+            test_07_usbmusic
+        TestTitle:
+            播放本地音乐
+        TestDescription:
+            播放本地音乐
+        TestPrecondition:
+            USB2.0连接U盘
+        TestStep:
+            1、播放本地音乐
+        TestExpectation:
+            1、本地音乐正常播放
+                """)
+    def test_07_usbmusic(self):
+        result = self.a19.local_music()
+        assert result == True
+    @allure.id("test_08_usbmusic")
+    @allure.title("播放本地音乐")
+    @allure.description("""
+        TestId:
+            test_08_usbmusic
+        TestTitle:
+            播放本地音乐
+        TestDescription:
+            播放本地音乐
+        TestPrecondition:
+            USB2.0连接U盘
+        TestStep:
+            1、播放本地音乐
+        TestExpectation:
+            1、本地音乐正常播放
+                """)
+    def test_08_usbmusic(self):
+        result = self.a19.local_music()
+        assert result == True
+    @allure.id("test_09_open_close_bluetooth")
+    @allure.title("开启关闭蓝牙")
+    @allure.description("""
+        TestId:
+            test_09_open_close_bluetooth
+        TestTitle:
+            开启关闭蓝牙
+        TestDescription:
+            开启关闭蓝牙
+        TestPrecondition:
+            无
+        TestStep:
+            1、开启蓝牙
+            2、关闭蓝牙
+        TestExpectation:
+            1、蓝牙开启成功
+            2、蓝牙关闭成功
+                """)
+    def test_09_open_close_bluetooth(self):
+        result = self.a19.open_close_bluetooth()
+        assert result == True
+    @allure.id("test_10_connect_bluetooth")
+    @allure.title("连接蓝牙")
+    @allure.description("""
+        TestId:
+            test_10_connect_bluetooth
+        TestTitle:
+            连接蓝牙
+        TestDescription:
+            连接蓝牙
+        TestPrecondition:
+            1、周边存在蓝牙名为test,且已经连接过此蓝牙设备
+        TestStep:
+            1、连接test蓝牙设备
+        TestExpectation:
+            1、蓝牙连接成功
+                """)
+    def test_10_connect_bluetooth(self):
+        result = self.a19.connect_bluetooth()
+        assert result == True
+    @allure.id("test_11_laucher")
+    @allure.title("laucher启动")
+    @allure.description("""
+        TestId:
+            test_11_laucher
+        TestTitle:
+            laucher启动
+        TestDescription:
+            laucher启动
+        TestPrecondition:
+            无
+        TestStep:
+            1、查看laucher界面显示
+        TestExpectation:
+            1、laucher界面显示正常
+                """)
+    def test_11_laucher(self):
+        result = self.a19.laucher()
+        assert result == True
+    @allure.id("test_12_systemui")
+    @allure.title("systemui验证")
+    @allure.description("""
+        TestId:
+            test_12_systemui
+        TestTitle:
+            systemui验证
+        TestDescription:
+            systemui验证
+        TestPrecondition:
+            1、回到主页
+        TestStep:
+            1、点击状态栏蓝牙图标
+            2、点击工具栏allmenu图标
+        TestExpectation:
+            1、蓝牙图标可点击
+            2、显示allmenu界面
+                """)
+    def test_12_systemui(self):
+        result = self.a19.systemui()
+        assert result == True
+    @allure.id("test_13_usbvideo_display")
+    @allure.title("本地视频显示")
+    @allure.description("""
+        TestId:
+            test_13_usbvideo_display
+        TestTitle:
+            本地视频显示
+        TestDescription:
+            本地视频显示
+        TestPrecondition:
+            1、USB2.0连接U盘
+        TestStep:
+            1、本地视频显示
+        TestExpectation:
+            1、本地视频界面显示正常
+                """)
+    def test_13_usbvideo_display(self):
+        result = self.a19.local_video_display()
+        assert result == True
+    @allure.id("test_14_usbvideo")
+    @allure.title("播放本地视频")
+    @allure.description("""
+        TestId:
+            test_14_usbvideo
+        TestTitle:
+            播放本地视频
+        TestDescription:
+            播放本地视频
+        TestPrecondition:
+            1、USB2.0连接U盘,且U盘有名字未“视频.mp4”的视频
+        TestStep:
+            1、播放本地视频
+        TestExpectation:
+            1、本地视频正常播放
+                """)
+    def test_14_usbvideo(self):
+        result = self.a19.local_video()
+        assert result == True
+    @allure.id("test_15_settings")
+    @allure.title("系统设置")
+    @allure.description("""
+        TestId:
+            test_15_settings
+        TestTitle:
+            系统设置
+        TestDescription:
+            系统设置
+        TestPrecondition:
+            无
+        TestStep:
+            1、进入系统设置
+        TestExpectation:
+            1、系统设置显示无异常
+                """)
+    def test_15_settings(self):
+        result = self.a19.settings_display()
+        assert result == True
 
 if __name__ == '__main__':
-    result=pytest.main(["-v", "-s", "main.py::TestIVI", '--alluredir', r'.\reports', '--clean-alluredir'])
+    
+    #result=pytest.main(["-v", "-s", "main.py::TestIVI", '--alluredir', r'.\reports', '--clean-alluredir'])
+    """
     if result == pytest.ExitCode.OK:
         send_reports("PASS")
     else:
         send_reports("FAIL")
     os.system(r'allure serve .\reports -p 9999')
+    """

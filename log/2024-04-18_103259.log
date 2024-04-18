@@ -1,0 +1,16 @@
+2024-04-18 10:32:59,971 - Log.py[line:32] - INFO: Serial port connection succeeded
+2024-04-18 10:33:00,532 - Log.py[line:32] - INFO: Successfully connected to the server
+2024-04-18 10:33:05,860 - Log.py[line:32] - INFO: 当前版本号为Hyper_A19_AVNT_SOP3_240321_2246D_D
+2024-04-18 10:33:28,660 - Log.py[line:36] - ERROR: ['//*[@content-desc="WLAN|无线网络|Wifi|网络连接::connectpanel_connectpanel_wlan"]/android.widget.TextView[1]']
+2024-04-18 10:33:33,546 - Log.py[line:32] - INFO: 爱奇艺播放成功
+2024-04-18 10:33:33,701 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-18 10:33:35,351 - Log.py[line:32] - INFO: 点击主页
+2024-04-18 10:33:41,538 - Log.py[line:32] - INFO: 地图已激活
+2024-04-18 10:33:44,577 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-18 10:33:46,153 - Log.py[line:32] - INFO: 点击主页
+2024-04-18 10:33:47,159 - Log.py[line:32] - INFO: 回到地图页面
+2024-04-18 10:34:35,540 - Log.py[line:36] - ERROR: -32001 Jsonrpc error: <androidx.test.uiautomator.UiObjectNotFoundException> data: UiSelector[RESOURCE_ID=com.gxatek.cockpit.shortcut:id/tv_lry], method: objInfo
+2024-04-18 10:35:11,760 - Log.py[line:36] - ERROR: -32002 Client error: <> data: Selector [resourceId='com.gxa.service.systemui:id/switcher', description='蓝牙开关::connectpanel_bluetooth_bluetoothSwitch'], method: None
+2024-04-18 10:35:28,639 - Log.py[line:36] - ERROR: -32001 Jsonrpc error: <androidx.test.uiautomator.UiObjectNotFoundException> data: UiSelector[RESOURCE_ID=com.gxatek.cockpit.shortcut:id/tv_lry], method: objInfo
+2024-04-18 10:35:40,380 - Log.py[line:36] - ERROR: -32001 Jsonrpc error: <androidx.test.uiautomator.UiObjectNotFoundException> data: UiSelector[RESOURCE_ID=com.gxatek.cockpit.shortcut:id/tv_lry], method: objInfo
+2024-04-18 10:36:35,271 - Log.py[line:36] - ERROR: -32002 Client error: <> data: Selector [resourceId='com.gxa.service.systemui:id/switcher', description='蓝牙开关::connectpanel_bluetooth_bluetoothSwitch'], method: None

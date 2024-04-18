@@ -1,0 +1,4 @@
+2024-04-18 15:14:38,342 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-18 15:14:40,006 - Log.py[line:32] - INFO: 点击主页
+2024-04-18 15:14:41,011 - Log.py[line:32] - INFO: 回到地图页面
+2024-04-18 15:14:54,127 - Log.py[line:36] - ERROR: textt is not allowed.

@@ -1,0 +1,4 @@
+2024-04-18 10:31:07,477 - Log.py[line:36] - ERROR: USB device 192.168.7.56:5555 is offline
+2024-04-18 10:31:13,959 - Log.py[line:36] - ERROR: USB device 192.168.7.56:5555 is offline
+2024-04-18 10:31:15,972 - Log.py[line:32] - INFO: Serial port connection succeeded
+2024-04-18 10:31:16,677 - Log.py[line:32] - INFO: Successfully connected to the server

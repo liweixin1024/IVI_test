@@ -1,0 +1,4 @@
+2024-04-18 15:33:07,496 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-18 15:33:09,102 - Log.py[line:32] - INFO: 点击主页
+2024-04-18 15:33:10,106 - Log.py[line:32] - INFO: 回到地图页面
+2024-04-18 15:33:45,733 - Log.py[line:36] - ERROR: ['//*[@resource-id="space.syncore.cockpit.map:id/srv_recycler_view"]/android.widget.RelativeLayout[1]/android.widget.FrameLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.RelativeLayout[1]/android.widget.ImageButton[1]']

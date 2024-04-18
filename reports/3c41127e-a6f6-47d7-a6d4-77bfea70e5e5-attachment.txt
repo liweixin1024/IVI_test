@@ -1,0 +1,1 @@
+[1m[31mERROR   [0m 2024-04-18_134713:Log.py:36 -32001 Jsonrpc error: <androidx.test.uiautomator.UiObjectNotFoundException> data: UiSelector[SCROLLABLE=true], method: scrollTo

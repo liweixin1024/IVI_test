@@ -1,0 +1,4 @@
+2024-04-18 14:06:32,953 - Log.py[line:32] - INFO: 不在地图页面
+2024-04-18 14:06:34,514 - Log.py[line:32] - INFO: 点击主页
+2024-04-18 14:06:35,524 - Log.py[line:32] - INFO: 回到地图页面
+2024-04-18 14:07:10,543 - Log.py[line:36] - ERROR: -32002 Client error: <> data: Selector [resourceId='space.syncore.cockpit.map:id/set_suggest_search_input', text='输入名称'], method: None
