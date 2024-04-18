@@ -1,4 +1,0 @@
-2024-04-18 13:54:17,556 - Log.py[line:32] - INFO: 不在地图页面
-2024-04-18 13:54:19,196 - Log.py[line:32] - INFO: 点击主页
-2024-04-18 13:54:20,203 - Log.py[line:32] - INFO: 回到地图页面
-2024-04-18 13:54:51,002 - Log.py[line:36] - ERROR: ['//*[@resource-id="space.syncore.cockpit.map:id/ib_search_btn"]/android.widget.ImageView[1]']

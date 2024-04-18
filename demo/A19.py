@@ -397,9 +397,9 @@ class A19devices():
             time.sleep(5)
             if self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").exists:
                 self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_simple_player_play").click()  # 播放音乐
-                if self.d(resourceId="com.iflytek.autofly.mediax:id/btn_dialog_account_cancel").exists:
+                if self.d(resourceId="com.iflytek.autofly.mediax:id/btn_dialog_account_cancel").exists(timeout=6):
                     self.d(resourceId="com.iflytek.autofly.mediax:id/btn_dialog_account_cancel").click()
-            elif self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_playlist_play", description="播放第4个#播放第四个#播第4个#播第四个#放第4个#放第四个#听第4个#听第四个").exists:
+            if self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_playlist_play", description="播放第4个#播放第四个#播第4个#播第四个#放第4个#放第四个#听第4个#听第四个").exists:
                 self.d(resourceId="com.iflytek.autofly.mediax:id/iv_item_music_playlist_play", description="播放第4个#播放第四个#播第4个#播第四个#放第4个#放第四个#听第4个#听第四个").click()
             elif self.d(resourceId="com.iflytek.autofly.mediax:id/tv_item_music_playlist_desc", text="2024网易云最火流行歌曲推荐（持更）").exists:
                 self.d(resourceId="com.iflytek.autofly.mediax:id/tv_item_music_playlist_desc", text="2024网易云最火流行歌曲推荐（持更）").click()
@@ -529,7 +529,6 @@ class A19devices():
             if open_status == True and close_status == True:
                 return True
             else:
-                print(open_status,close_status)
                 return False
         except Exception as e:
             Logger.error(e)
@@ -546,7 +545,10 @@ class A19devices():
             self.d(text="蓝牙").click()
             time.sleep(1)
             if not self.d(resourceId="com.gxa.service.systemui:id/title", text="自动连接").exists(timeout=6):
-                self.d(resourceId="com.gxa.service.systemui:id/switcher", description="蓝牙开关::connectpanel_bluetooth_bluetoothSwitch").click()
+                if self.d(resourceId="com.gxa.service.systemui:id/switcher").exists(timeout=6):
+                    self.d(resourceId="com.gxa.service.systemui:id/switcher").click()
+                elif self.d(resourceId="com.gxa.service.systemui:id/switcher", description="蓝牙开关::connectpanel_bluetooth_bluetoothSwitch").exists(timeout=6):
+                    self.d(resourceId="com.gxa.service.systemui:id/switcher", description="蓝牙开关::connectpanel_bluetooth_bluetoothSwitch").click()
             time.sleep(10)
             if self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").exists:
                 self.d(resourceId="com.gxa.service.systemui:id/im_detail_toggle").click()
@@ -741,6 +743,8 @@ class A19devices():
             time.sleep(1)
             self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="图片视频").click()
             time.sleep(1)
+            if self.d(resourceId="com.gxatek.cockpit.gallery:id/back").exists(timeout=6):
+                self.d(resourceId="com.gxatek.cockpit.gallery:id/back").click()
             self.d(text="USB2").click()
             if self.d(text="本机相册").exists:
                 return True
@@ -760,6 +764,7 @@ class A19devices():
     def local_video(self):
         "本地视频播放"
         try:
+            
             "本地视频，保证根目录下有“视频.mp4”视频"
             self.d(resourceId="com.gxa.service.systemui:id/home").click()  # 回到主页
             time.sleep(1)
@@ -767,6 +772,8 @@ class A19devices():
             time.sleep(1)
             self.d(resourceId="com.gxatek.cockpit.shortcut:id/tv_app_name", text="图片视频").click()
             time.sleep(1)
+            if self.d(resourceId="com.gxatek.cockpit.gallery:id/back").exists(timeout=6):
+                self.d(resourceId="com.gxatek.cockpit.gallery:id/back").click()
             if not self.d(text="USB2").exists:
                 self.d.click(1237,534)
                 self.d.click(1237,534)
@@ -778,18 +785,29 @@ class A19devices():
             self.d(text="USB2").click()
             if self.d(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="视频").exists:
                 self.d(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="视频").click()
-                self.d(scrollable=True).scroll.to(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="视频")
             elif self.d(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="yuebing").exists:
                 self.d(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="yuebing").click()
             else:
                 self.d(scrollable=True).scroll.to(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="视频")
                 self.d(resourceId="com.gxatek.cockpit.gallery:id/img_name", text="视频").click()
             time.sleep(1)
-            if self.d(resourceId="com.gxatek.cockpit.gallery:id/start").exists:#判断是否有暂停按钮
+            if self.d(resourceId="com.gxatek.cockpit.gallery:id/start").exists(timeout=6):#判断是否有暂停按钮
+                self.d.click(1237,534)
                 self.d(resourceId="com.gxa.service.systemui:id/app_control_layout").click()
                 return True
-            elif self.d(resourceId="com.gxa.service.systemui:id/app_control_layout").exists:#判断是否有退出按钮
+            elif self.d(resourceId="com.gxa.service.systemui:id/app_control_layout").exists(timeout=6):#判断是否有退出按钮
+                self.d.click(1237,534)
                 self.d(resourceId="com.gxa.service.systemui:id/app_control_layout").click()
+                return True
+            elif self.d(resourceId="com.gxatek.cockpit.gallery:id/back").exists(timeout=6):
+                if not self.d(resourceId="com.gxatek.cockpit.gallery:id/back").exists(timeout=6):
+                    self.d.click(1237,534)
+                    self.d(resourceId="com.gxatek.cockpit.gallery:id/back").click()
+                return True
+            elif self.d(resourceId="com.gxatek.cockpit.gallery:id/bottom_speed",text="倍速").exists(timeout=6):
+                if not self.d(resourceId="com.gxatek.cockpit.gallery:id/back").exists(timeout=6):
+                    self.d.click(1237,534)
+                    self.d(resourceId="com.gxatek.cockpit.gallery:id/back").click()
                 return True
             else:
                 return False

@@ -1,4 +1,0 @@
-2024-04-18 16:28:37,736 - Log.py[line:32] - INFO: 不在地图页面
-2024-04-18 16:28:45,456 - Log.py[line:32] - INFO: 点击主页
-2024-04-18 16:28:46,462 - Log.py[line:32] - INFO: 回到地图页面
-2024-04-18 16:29:00,555 - Log.py[line:36] - ERROR: 'bool' object is not callable

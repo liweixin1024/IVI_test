@@ -1,7 +1,0 @@
-2024-04-16 15:36:26,591 - Log.py[line:36] - ERROR: Serial port connection failed:could not open port 'COM117': FileNotFoundError(2, '系统找不到指定的文件。', None, 2)
-2024-04-16 15:36:27,097 - Log.py[line:32] - INFO: Successfully connected to the server
-2024-04-16 15:36:45,995 - Log.py[line:32] - INFO: 进入我的车
-2024-04-16 15:36:48,225 - Log.py[line:32] - INFO: 进入系统设置
-2024-04-16 15:36:53,063 - Log.py[line:32] - INFO: 滑动到时间与日期
-2024-04-16 15:36:54,135 - Log.py[line:32] - INFO: 无法进入工程模式
-2024-04-16 15:36:54,135 - Log.py[line:32] - INFO: 点击系统时间进入工程模式

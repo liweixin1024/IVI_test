@@ -1,7 +1,0 @@
-2024-04-17 10:43:41,359 - Log.py[line:32] - INFO: Serial port connection succeeded
-2024-04-17 10:43:41,882 - Log.py[line:32] - INFO: Successfully connected to the server
-2024-04-17 10:43:49,188 - Log.py[line:32] - INFO: 当前版本号为Hyper_A19_AVNT_ST_240415_0115D_D
-2024-04-17 10:43:52,034 - Log.py[line:32] - INFO: 当前wifi已连接
-2024-04-17 10:43:56,687 - Log.py[line:32] - INFO: 不在地图页面
-2024-04-17 10:44:03,102 - Log.py[line:32] - INFO: 地图已激活
-2024-04-17 10:44:06,124 - Log.py[line:32] - INFO: 回到地图页面

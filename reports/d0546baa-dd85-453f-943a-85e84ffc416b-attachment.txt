@@ -1,1 +1,0 @@
-[1m[31mERROR   [0m 2024-04-18_134713:Log.py:36 -32002 Client error: <> data: Selector [text='USB2'], method: None
